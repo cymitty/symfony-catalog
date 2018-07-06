@@ -3,7 +3,6 @@
 namespace App\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -18,24 +17,15 @@ class Category
      */
     private $id;
 
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $name;
+    /** @ORM\Column(type="string") */
+    private $slug;
 
-    /**
-     * @ORM\Column(type="integer", nullable=true)
-     */
-    private $parent_id;
-
-    /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Product", mappedBy="category")
-     */
-    private $products;
+    /** @ORM\Column(type="array")  */
+    private $childrens;
 
     public function __construct()
     {
-        $this->products = new ArrayCollection();
+        $childrens = new ArrayCollection();
     }
 
     public function getId()
@@ -43,58 +33,32 @@ class Category
         return $this->id;
     }
 
-    public function getName(): ?string
+    /**
+     * @return string
+     */
+    public function getSlug(): string
     {
-        return $this->name;
-    }
-
-    public function setName(string $name): self
-    {
-        $this->name = $name;
-
-        return $this;
-    }
-
-    public function getParentId(): ?int
-    {
-        return $this->parent_id;
-    }
-
-    public function setParentId(?int $parent_id): self
-    {
-        $this->parent_id = $parent_id;
-
-        return $this;
+        return $this->slug;
     }
 
     /**
-     * @return Collection|Product[]
+     * @param mixed $string
      */
-    public function getProducts(): Collection
+    public function setSlug($slug): void
     {
-        return $this->products;
+        $this->slug = $slug;
     }
 
-    public function addProduct(Product $product): self
+    /**
+     * @param mixed $childrens
+     */
+    public function setChildrens(Category $child): void
     {
-        if (!$this->products->contains($product)) {
-            $this->products[] = $product;
-            $product->setCategory($this);
-        }
-
-        return $this;
+        $this->childrens[] = $child;
     }
 
-    public function removeProduct(Product $product): self
+    public function getChildrens()
     {
-        if ($this->products->contains($product)) {
-            $this->products->removeElement($product);
-            // set the owning side to null (unless already changed)
-            if ($product->getCategory() === $this) {
-                $product->setCategory(null);
-            }
-        }
-
-        return $this;
+        return $this->childrens;
     }
 }

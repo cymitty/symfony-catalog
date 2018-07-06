@@ -11,7 +11,6 @@ use Symfony\Bridge\Doctrine\RegistryInterface;
  * @method Category|null findOneBy(array $criteria, array $orderBy = null)
  * @method Category[]    findAll()
  * @method Category[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
- * @method Category|null findOneByName(string $name)
  */
 class CategoryRepository extends ServiceEntityRepository
 {
@@ -19,19 +18,6 @@ class CategoryRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Category::class);
     }
-
-// Не работает
-//   public function findOneByName($value): ?Category
-//   {
-//       return $this->createQueryBuilder('c')
-//           ->andWhere('c.name = :val')
-//           ->setParameter('val', $value)
-//           ->getQuery()
-//           ->getOneOrNullResult();
-//   }
-
-
-
 
 //    /**
 //     * @return Category[] Returns an array of Category objects
