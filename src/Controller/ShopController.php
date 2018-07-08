@@ -28,16 +28,16 @@ class ShopController extends Controller
     }
 
     /**
-     * @Route("/category/{name}", name="_categoryByName")
+     * @Route("/category/{slug}", name="_categoryByName")
      */
-    public function category($name, EntityManagerInterface $em)
+    public function category($slug, EntityManagerInterface $em)
     {
         $categories = $em->getRepository(Category::class)
             ->findAll();
 
         $category = $em->getRepository(Category::class)
             ->findOneBy([
-                'name' => $name,
+                'slug' => $slug,
                 ]);
 
         if ( !$category ) {
@@ -53,16 +53,16 @@ class ShopController extends Controller
     }
 
     /**
-     * @Route("/product/{name}", name="_product")
+     * @Route("/product/{slug}", name="_product")
      */
-    public function product($name, EntityManagerInterface $em)
+    public function product($slug, EntityManagerInterface $em)
     {
         $categories = $em->getRepository(Category::class)
             ->findAll();
 
         $product = $em->getRepository(Product::class)
             ->findOneBy([
-                'name' => $name
+                'slug' => $slug
             ]);
 //        $category->setName('Телевизоры');
 //        $em->persist($category);
@@ -103,7 +103,7 @@ class ShopController extends Controller
         ]);
     }
     /**
-     * @Route("/test", name="_product")
+     * @Route("/test", name="_test")
      */
     public function test(EntityManagerInterface $em)
     {

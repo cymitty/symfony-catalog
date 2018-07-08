@@ -13,11 +13,11 @@
 
     <ul>
         {% for category in categories %}
-            <li><a href="">{{ category.name }}</a></li>
+            <li><a href="{{ path('shop_categoryByName', {'slug': category.slug }) }}">{{ category.name }}</a></li>
         {% endfor %}
     </ul>
     <h1>
-        {{ product.title }}
+        {{ product.name }}
     </h1>
     <h2>
         {{ product.description }}
